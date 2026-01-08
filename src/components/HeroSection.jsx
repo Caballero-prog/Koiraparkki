@@ -1,18 +1,35 @@
 import "../styles/HeroSection.css";
-import heroBg from "../assets/basenji.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const HeroSection = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="hero" style={{backgroundImage: `url(${heroBg})`}}>
+    <header className="site-header">
       <nav className="navigation-bar">
-        <button className="burger-menu" type="button" aria-label="Open menu">
-          <FontAwesomeIcon icon={faBars} />
+        <button
+          className={`burger-menu ${menuOpen ? "open" : ""}`}
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} />
         </button>
-        <span className="hero-title">Koiraparkki</span>
+
+        <h1 className="hero-title">Koiraparkki</h1>
         <div className="nav-spacer" aria-hidden="true" />
       </nav>
+
+      <div id="mobile-menu" className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
     </header>
   );
 };
